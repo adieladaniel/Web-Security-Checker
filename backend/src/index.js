@@ -13,6 +13,9 @@ app.use("/api/scan", scanRoutes)
 app.get("/", (req, res) => {
   res.json({ message: "Web OSINT Scanner API running" });
 });
+app.get("/api/test", (req, res) => {
+  res.json({ message: "API test route working" });
+});
 
 const PORT = process.env.PORT || 5000;
 
