@@ -132,6 +132,9 @@ function ScanInput({ domain, onChange, onScan, loading }) {
 function ResultsGrid({ result }) {
   if (!result) return null;
 
+  const intel = result.intelligence || {};
+  const history = result.history || {};
+
   if (result.reachable === false) {
     return (
       <div className="result-card corner-bracket" style={{
@@ -467,6 +470,83 @@ function ResultsGrid({ result }) {
             <span style={{ color: "var(--text-muted)", fontSize: "0.75rem" }}>No redirects detected</span>
           )}
         </ResultCard>
+
+        <ResultCard
+          title="Subdomains"
+          icon="🧬"
+          accentColor="rgba(14,165,233,0.35)"
+          info="Finds public subdomains using certificate transparency logs. Admin, dev, test and staging subdomains may increase exposure."
+        >
+          <StatRow label="Total Found" value={intel.subdomains?.total || 0} />
+
+          {intel.subdomains?.risky?.length > 0 && (
+            <div style={{ marginTop: 8 }}>
+              <span className="badge badge-warn">Risky Names Found</span>
+              {intel.subdomains.risky.slice(0, 5).map((s, i) => (
+                <div key={i} style={{ fontSize: "0.82rem", marginTop: 5 }}>
+                  ⚠ {s}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {(intel.subdomains?.subdomains || []).slice(0, 8).map((s, i) => (
+            <div key={i} style={{ fontSize: "0.82rem", marginTop: 4 }}>
+              ↳ {s}
+            </div>
+          ))}
+        </ResultCard> 
+
+        <ResultCard
+          title="WAF Detection"
+          icon="🧱"
+          accentColor={intel.waf?.detected ? "rgba(16,185,129,0.35)" : "rgba(245,158,11,0.35)"}
+          info="Detects whether a Web Application Firewall or CDN security layer is protecting the site."
+        >
+          <StatRow
+            label="Detected"
+            value={intel.waf?.detected ? "Yes" : "No"}
+            status={intel.waf?.detected ? "good" : "warn"}
+          />
+          <StatRow label="Provider" value={intel.waf?.provider || "Not detected"} />
+        </ResultCard>
+
+        <ResultCard
+          title="Technology Stack"
+          icon="🧩"
+          accentColor="rgba(20,184,166,0.35)"
+          info="Detects technologies from server headers, HTML source, scripts, meta tags and known fingerprints."
+        >
+          <StatRow label="Detected" value={intel.technologies?.total || 0} />
+
+          {intel.technologies?.technologies?.length > 0 ? (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 8 }}>
+              {intel.technologies.technologies.map((t, i) => (
+                <span key={i} className="badge badge-info">
+                  {t}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <span>No technologies detected</span>
+          )}
+        </ResultCard>
+
+        <ResultCard
+          title="Infrastructure"
+          icon="🛰"
+          accentColor="rgba(6,182,212,0.35)"
+          info="Shows hosting and network intelligence such as IP address, ASN, ISP, country, region and city."
+        >
+          <StatRow label="IP" value={intel.infrastructure?.ip || "N/A"} />
+          <StatRow label="Country" value={intel.infrastructure?.country || "N/A"} />
+          <StatRow label="City" value={intel.infrastructure?.city || "N/A"} />
+          <StatRow label="ISP" value={intel.infrastructure?.isp || "N/A"} />
+          <StatRow label="ASN" value={intel.infrastructure?.asn || "N/A"} />
+          <StatRow label="Timezone" value={intel.infrastructure?.timezone || "N/A"} />
+        </ResultCard>
+
+        
 
       </div>
     </div>

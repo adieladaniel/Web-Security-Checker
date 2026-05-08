@@ -18,6 +18,13 @@ import { scanSensitivePaths } from "./vulnerability/paths.service.js";
 import { detectTechStack } from "./vulnerability/techStack.service.js";
 import { scanPorts } from "./vulnerability/ports.service.js";
 
+import { getSubdomains } from "./intelligence/subdomains.service.js";
+import { detectWAF } from "./intelligence/waf.service.js";
+import { detectTechnologies } from "./intelligence/technology.service.js";
+import { getGeoIPInfo } from "./intelligence/geoip.service.js";
+
+
+
 export const runFullScan = async (inputDomain) => {
   const domain = normalizeDomain(inputDomain);
   const url = toHttpsUrl(domain);
@@ -36,7 +43,8 @@ export const runFullScan = async (inputDomain) => {
     cookies,
     cors,
     sensitivePaths,
-    openPorts
+    openPorts,
+    subdomains
   ] = await Promise.allSettled([
     getDnsRecords(domain),
     getSslCertificate(domain),
@@ -51,7 +59,8 @@ export const runFullScan = async (inputDomain) => {
     checkCookies(domain),
     checkCORS(domain),
     scanSensitivePaths(domain),
-    scanPorts(domain)
+    scanPorts(domain),
+    getSubdomains(domain)
   ]);
 
   const unwrap = (item) =>
@@ -73,32 +82,44 @@ export const runFullScan = async (inputDomain) => {
   const corsData = unwrap(cors);
   const sensitivePathsData = unwrap(sensitivePaths);
   const openPortsData = unwrap(openPorts);
-
+  const subdomainsData = unwrap(subdomains);
 
   const isReachable =
-  headersData &&
-  !headersData.error &&
-  headersData.status &&
-  headersData.status >= 100 &&
-  headersData.status < 600;
+    headersData &&
+    !headersData.error &&
+    headersData.status &&
+    headersData.status >= 100 &&
+    headersData.status < 600;
 
-const hasDns =
-  (dnsData?.A?.length || 0) > 0 ||
-  (dnsData?.AAAA?.length || 0) > 0 ||
-  (dnsData?.CNAME?.length || 0) > 0;
+  const hasDns =
+    (dnsData?.A?.length || 0) > 0 ||
+    (dnsData?.AAAA?.length || 0) > 0 ||
+    (dnsData?.CNAME?.length || 0) > 0;
 
-if (!isReachable && !hasDns) {
-  return {
-    domain,
-    scannedAt: new Date().toISOString(),
-    reachable: false,
-    message: "Website not found or unreachable. Please check the domain and try again.",
-    errorDetails: {
-      dns: dnsData,
-      headers: headersData
-    }
-  };
-}
+  if (!isReachable && !hasDns) {
+    return {
+      domain,
+      scannedAt: new Date().toISOString(),
+      reachable: false,
+      message:
+        "Website not found or unreachable. Please check the domain and try again.",
+      errorDetails: {
+        dns: dnsData,
+        headers: headersData
+      }
+    };
+  }
+
+  const [technologies, infrastructure] = await Promise.allSettled([
+    detectTechnologies(domain, headersData?.headers || {}),
+    getGeoIPInfo(dnsData)
+  ]);
+
+  const technologiesData = unwrap(technologies);
+  const infrastructureData = unwrap(infrastructure);
+
+  const wafData = detectWAF(headersData?.headers || {});
+
   const scoreResult = calculateSecurityScore({
     headers: headersData,
     whois: whoisData,
@@ -112,10 +133,17 @@ if (!isReachable && !hasDns) {
     sensitivePaths: sensitivePathsData,
     openPorts: openPortsData
   });
+  console.log({
+    dnsData,
+    subdomainsData,
+    technologiesData,
+    infrastructureData,
+    wafData
+  });
 
-  return {
+  const finalResult = {
     domain,
-    reachable:true,
+    reachable: true,
     scannedAt: new Date().toISOString(),
 
     dns: dnsData,
@@ -125,13 +153,20 @@ if (!isReachable && !hasDns) {
     robots: robotsData,
     sitemap: sitemapData,
     redirects: redirectsData,
-    
+
     threatIntel: {
       virusTotal: virusTotalData,
       safeBrowsing: safeBrowsingData
     },
 
     archiveHistory: waybackData,
+
+    intelligence: {
+      subdomains: subdomainsData,
+      waf: wafData,
+      technologies: technologiesData,
+      infrastructure: infrastructureData
+    },
 
     vulnerabilities: {
       score: scoreResult.score,
@@ -141,7 +176,71 @@ if (!isReachable && !hasDns) {
       cors: corsData,
       sensitivePaths: sensitivePathsData,
       openPorts: openPortsData,
-      techStack: detectTechStack(headersData?.headers || {})
+      techStack: [
+        ...new Set([
+          ...(detectTechStack(headersData?.headers || {}) || []),
+          ...(technologiesData?.technologies || [])
+        ])
+      ]
+    }
+  };
+
+  const previousScan = await getPreviousScan(domain);
+  const comparison = compareScans(finalResult, previousScan);
+  const riskExplanation = generateRiskExplanation(finalResult);
+
+  await saveScanHistory(finalResult);
+
+  return {
+    ...finalResult,
+    history: {
+      comparison,
+      riskExplanation
+    }
+  };
+
+
+  return {
+    domain,
+    reachable: true,
+    scannedAt: new Date().toISOString(),
+
+    dns: dnsData,
+    ssl: sslData,
+    headers: headersData,
+    whois: whoisData,
+    robots: robotsData,
+    sitemap: sitemapData,
+    redirects: redirectsData,
+
+    threatIntel: {
+      virusTotal: virusTotalData,
+      safeBrowsing: safeBrowsingData
+    },
+
+    archiveHistory: waybackData,
+
+    intelligence: {
+      subdomains: subdomainsData,
+      waf: wafData,
+      technologies: technologiesData,
+      infrastructure: infrastructureData
+    },
+
+    vulnerabilities: {
+      score: scoreResult.score,
+      riskLevel: scoreResult.riskLevel,
+      findings: scoreResult.findings,
+      cookies: cookiesData,
+      cors: corsData,
+      sensitivePaths: sensitivePathsData,
+      openPorts: openPortsData,
+      techStack: [
+        ...new Set([
+          ...(detectTechStack(headersData?.headers || {}) || []),
+          ...(technologiesData?.technologies || [])
+        ])
+      ]
     }
   };
 };

@@ -1,0 +1,229 @@
+{
+  "scans": [
+    {
+      "domain": "edunexttechnologies.com",
+      "scannedAt": "2026-05-08T07:12:00.362Z",
+      "score": 30,
+      "riskLevel": "High",
+      "findings": {
+        "high": [
+          "Missing Content Security Policy"
+        ],
+        "medium": [
+          "Missing HSTS",
+          "Missing X-Frame-Options",
+          "Missing X-Content-Type-Options",
+          "Admin path exposed in robots.txt"
+        ],
+        "low": [
+          "DNSSEC not enabled"
+        ]
+      },
+      "dns": {
+        "A": [
+          "13.127.186.134"
+        ],
+        "AAAA": [],
+        "MX": [
+          {
+            "exchange": "mx-indiabiz.mail.gm0.yahoodns.net",
+            "priority": 30
+          }
+        ],
+        "NS": [
+          "ns-cloud-e3.googledomains.com",
+          "ns-cloud-e2.googledomains.com",
+          "ns-cloud-e4.googledomains.com",
+          "ns-cloud-e1.googledomains.com"
+        ],
+        "TXT": [],
+        "CNAME": []
+      },
+      "headers": {
+        "contentSecurityPolicy": null,
+        "strictTransportSecurity": null,
+        "xFrameOptions": null,
+        "xContentTypeOptions": null,
+        "referrerPolicy": null,
+        "permissionsPolicy": null
+      },
+      "technologies": {
+        "total": 6,
+        "technologies": [
+          "Apache",
+          "jQuery",
+          "Bootstrap",
+          "Google Analytics",
+          "Cloudflare",
+          "PHP"
+        ]
+      },
+      "infrastructure": {
+        "found": true,
+        "ip": "13.127.186.134",
+        "country": "India",
+        "city": "Mumbai",
+        "region": "Maharashtra",
+        "isp": "Amazon.com, Inc.",
+        "org": "Amazon Data Services India",
+        "asn": 16509,
+        "timezone": "Asia/Calcutta",
+        "latitude": 19.0759837,
+        "longitude": 72.8776559
+      }
+    },
+    {
+      "domain": "google.com",
+      "scannedAt": "2026-05-08T07:12:53.801Z",
+      "score": 50,
+      "riskLevel": "Medium",
+      "findings": {
+        "high": [
+          "Missing Content Security Policy"
+        ],
+        "medium": [
+          "Missing HSTS",
+          "Missing X-Content-Type-Options"
+        ],
+        "low": [
+          "DNSSEC not enabled"
+        ]
+      },
+      "dns": {
+        "A": [
+          "172.217.24.78"
+        ],
+        "AAAA": [
+          "2404:6800:4002:820::200e"
+        ],
+        "MX": [
+          {
+            "exchange": "smtp.google.com",
+            "priority": 10
+          }
+        ],
+        "NS": [
+          "ns3.google.com",
+          "ns2.google.com",
+          "ns1.google.com",
+          "ns4.google.com"
+        ],
+        "TXT": [
+          "docusign=1b0a6754-49b1-4db5-8540-d2c12664b289",
+          "apple-domain-verification=30afIBcvSuDV2PLX",
+          "v=spf1 include:_spf.google.com ~all",
+          "google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ",
+          "docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e",
+          "google-site-verification=4ibFUgB-wXLQ_S7vsXVomSTVamuOXBiVAzpR5IZ87D0",
+          "MS=E4A68B9AB2BB9670BCE15412F62916164C0B20BB",
+          "globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8=",
+          "google-site-verification=wD8N7i1JTNTkezJ49swvWW48f8_9xveREV4oB-0Hf5o",
+          "onetrust-domain-verification=0d477fe608074e6f9c12bca7826035cc",
+          "cisco-ci-domain-verification=47c38bc8c4b74b7233e9053220c1bbe76bcc1cd33c7acf7acd36cd6a5332004b",
+          "onetrust-domain-verification=6d685f1d41a94696ad7ef771f68993e0",
+          "facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95"
+        ],
+        "CNAME": []
+      },
+      "headers": {
+        "contentSecurityPolicy": null,
+        "strictTransportSecurity": null,
+        "xFrameOptions": "SAMEORIGIN",
+        "xContentTypeOptions": null,
+        "referrerPolicy": null,
+        "permissionsPolicy": null
+      },
+      "technologies": {
+        "total": 1,
+        "technologies": [
+          "Vue.js"
+        ]
+      },
+      "infrastructure": {
+        "found": true,
+        "ip": "172.217.24.78",
+        "country": "United States",
+        "city": "Washington",
+        "region": "District of Columbia",
+        "isp": "Google LLC",
+        "org": "Google LLC",
+        "asn": 15169,
+        "timezone": "America/New_York",
+        "latitude": 38.9071923,
+        "longitude": -77.0368707
+      }
+    },
+    {
+      "domain": "edunexttechnologies.com",
+      "scannedAt": "2026-05-08T07:13:25.349Z",
+      "score": 30,
+      "riskLevel": "High",
+      "findings": {
+        "high": [
+          "Missing Content Security Policy"
+        ],
+        "medium": [
+          "Missing HSTS",
+          "Missing X-Frame-Options",
+          "Missing X-Content-Type-Options",
+          "Admin path exposed in robots.txt"
+        ],
+        "low": [
+          "DNSSEC not enabled"
+        ]
+      },
+      "dns": {
+        "A": [
+          "13.127.186.134"
+        ],
+        "AAAA": [],
+        "MX": [
+          {
+            "exchange": "mx-indiabiz.mail.gm0.yahoodns.net",
+            "priority": 30
+          }
+        ],
+        "NS": [
+          "ns-cloud-e3.googledomains.com",
+          "ns-cloud-e4.googledomains.com",
+          "ns-cloud-e2.googledomains.com",
+          "ns-cloud-e1.googledomains.com"
+        ],
+        "TXT": [],
+        "CNAME": []
+      },
+      "headers": {
+        "contentSecurityPolicy": null,
+        "strictTransportSecurity": null,
+        "xFrameOptions": null,
+        "xContentTypeOptions": null,
+        "referrerPolicy": null,
+        "permissionsPolicy": null
+      },
+      "technologies": {
+        "total": 6,
+        "technologies": [
+          "Apache",
+          "jQuery",
+          "Bootstrap",
+          "Google Analytics",
+          "Cloudflare",
+          "PHP"
+        ]
+      },
+      "infrastructure": {
+        "found": true,
+        "ip": "13.127.186.134",
+        "country": "India",
+        "city": "Mumbai",
+        "region": "Maharashtra",
+        "isp": "Amazon.com, Inc.",
+        "org": "Amazon Data Services India",
+        "asn": 16509,
+        "timezone": "Asia/Calcutta",
+        "latitude": 19.0759837,
+        "longitude": 72.8776559
+      }
+    }
+  ]
+}
