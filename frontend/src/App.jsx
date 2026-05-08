@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { scanDomain } from "./api/scanApi";
 import ResultCard, { StatRow, StatusBadge } from "./components/ResultCard";
 import SecurityScoreRing from "./components/SecurityScoreRing";
@@ -497,6 +497,21 @@ export default function App() {
     }
   }, [domain]);
 
+  useEffect(() => {
+    if (loading) {
+      document.title = `Scanning ${domain || "target"}...`;
+    } else if (result) {
+      document.title = `${scannedDomain} | Scan Complete`;
+    } else {
+      document.title = "Three-Eyed Raven | Web Security Scanner";
+    }
+
+    return () => {
+      document.title = "Three-Eyed Raven | Web Security Scanner";
+    };
+  }, [loading, result, domain, scannedDomain]);
+
+  
   return (
     <div className="scanlines" style={{ minHeight: "100vh", position: "relative" }}>
       <ThreeBackground />

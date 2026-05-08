@@ -393,3 +393,95 @@ body {
   border: 1px solid rgba(6,182,212,0.25);
   background: rgba(6,182,212,0.07);
 }
+
+
+:root {
+  --bg-primary: #f8fbff;
+  --bg-secondary: #eef7fb;
+  --card-bg: rgba(255, 255, 255, 0.72);
+
+  --accent-primary: #0891b2;
+  --accent-secondary: #0f766e;
+  --accent-glow: rgba(8, 145, 178, 0.25);
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+
+  --border-primary: rgba(8, 145, 178, 0.28);
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.22), transparent 35%),
+    radial-gradient(circle at top right, rgba(20, 184, 166, 0.18), transparent 30%),
+    linear-gradient(135deg, #f8fbff 0%, #edf8fb 55%, #ffffff 100%);
+  color: var(--text-primary);
+}
+
+.glass-card,
+.result-card {
+  background: rgba(255, 255, 255, 0.68) !important;
+  border-color: rgba(8, 145, 178, 0.28) !important;
+  box-shadow:
+    0 10px 35px rgba(15, 23, 42, 0.08),
+    inset 0 0 18px rgba(8, 145, 178, 0.04) !important;
+  backdrop-filter: blur(16px);
+}
+
+.result-card:hover,
+.glass-card:hover {
+  border-color: rgba(8, 145, 178, 0.45) !important;
+  box-shadow:
+    0 14px 40px rgba(15, 23, 42, 0.12),
+    0 0 18px rgba(8, 145, 178, 0.12) !important;
+}
+
+.card-title {
+  color: #0f766e !important;
+}
+
+.card-icon {
+  background: rgba(8, 145, 178, 0.10) !important;
+  border-color: rgba(8, 145, 178, 0.35) !important;
+}
+
+.cyber-input {
+  background: rgba(255, 255, 255, 0.78) !important;
+  color: #0f172a !important;
+  border-color: rgba(8, 145, 178, 0.35) !important;
+}
+
+.cyber-input::placeholder {
+  color: #64748b !important;
+}
+
+.cyber-button {
+  background: linear-gradient(135deg, #06b6d4, #14b8a6) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 18px rgba(8, 145, 178, 0.28) !important;
+}
+
+.title-glow {
+  color: #0f172a !important;
+  text-shadow: 0 0 18px rgba(8, 145, 178, 0.18) !important;
+}
+
+.feature-tag,
+.nav-pill {
+  color: #0f766e !important;
+  border-color: rgba(8, 145, 178, 0.35) !important;
+  background: rgba(8, 145, 178, 0.08) !important;
+}
+
+.stat-label {
+  color: #64748b !important;
+}
+
+.stat-value {
+  color: #0f172a !important;
+}
+
+.scanlines::before {
+  opacity: 0.05 !important;
+}
