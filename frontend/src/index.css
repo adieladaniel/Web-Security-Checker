@@ -595,3 +595,93 @@ body {
 .result-card p {
   line-height: 1.6;
 }
+
+
+
+
+/* =========================
+   STRONG STATUS COLORS FIX
+========================= */
+
+.stat-value {
+  font-weight: 800 !important;
+}
+
+/* Green for good values */
+.stat-value[style*="52, 211, 153"],
+.stat-value[style*="34d399"],
+.stat-value[style*="good"] {
+  color: #047857 !important;
+}
+
+/* Red for bad values */
+.stat-value[style*="248, 113, 113"],
+.stat-value[style*="f87171"],
+.stat-value[style*="bad"] {
+  color: #b91c1c !important;
+}
+
+/* Yellow/orange for warning values */
+.stat-value[style*="251, 191, 36"],
+.stat-value[style*="fbbf24"],
+.stat-value[style*="warn"] {
+  color: #b45309 !important;
+}
+
+/* Badge colors - strong but not too light */
+.badge-success {
+  background: rgba(5, 150, 105, 0.14) !important;
+  color: #047857 !important;
+  border: 1px solid rgba(5, 150, 105, 0.35) !important;
+  font-weight: 800 !important;
+}
+
+.badge-danger {
+  background: rgba(220, 38, 38, 0.14) !important;
+  color: #b91c1c !important;
+  border: 1px solid rgba(220, 38, 38, 0.35) !important;
+  font-weight: 800 !important;
+}
+
+.badge-warn {
+  background: rgba(217, 119, 6, 0.16) !important;
+  color: #92400e !important;
+  border: 1px solid rgba(217, 119, 6, 0.38) !important;
+  font-weight: 800 !important;
+}
+
+.badge-info {
+  background: rgba(8, 145, 178, 0.14) !important;
+  color: #0e7490 !important;
+  border: 1px solid rgba(8, 145, 178, 0.35) !important;
+  font-weight: 800 !important;
+}
+
+/* Strong explicit text colors used inside vulnerability/fix cards */
+.result-card span[style*="#fca5a5"] {
+  color: #b91c1c !important;
+  font-weight: 800 !important;
+}
+
+.result-card span[style*="#fde68a"] {
+  color: #92400e !important;
+  font-weight: 800 !important;
+}
+
+.result-card span[style*="#a5f3fc"] {
+  color: #0e7490 !important;
+  font-weight: 800 !important;
+}
+
+.result-card span[style*="#d8b4fe"] {
+  color: #075985 !important;
+  font-weight: 800 !important;
+}
+
+/* Make harmful exposed paths stronger */
+.result-card span:has(+ .badge-danger),
+.result-card .badge-danger + span,
+.result-card .badge-warn + span {
+  color: #9a3412 !important;
+  font-weight: 800 !important;
+}
