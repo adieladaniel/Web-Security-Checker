@@ -133,7 +133,6 @@ function ResultsGrid({ result }) {
   if (!result) return null;
 
   const intel = result.intelligence || {};
-  const history = result.history || {};
 
   if (result.reachable === false) {
     return (

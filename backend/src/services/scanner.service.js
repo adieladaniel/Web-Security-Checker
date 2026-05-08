@@ -23,8 +23,6 @@ import { detectWAF } from "./intelligence/waf.service.js";
 import { detectTechnologies } from "./intelligence/technology.service.js";
 import { getGeoIPInfo } from "./intelligence/geoip.service.js";
 
-
-
 export const runFullScan = async (inputDomain) => {
   const domain = normalizeDomain(inputDomain);
   const url = toHttpsUrl(domain);
@@ -117,7 +115,6 @@ export const runFullScan = async (inputDomain) => {
 
   const technologiesData = unwrap(technologies);
   const infrastructureData = unwrap(infrastructure);
-
   const wafData = detectWAF(headersData?.headers || {});
 
   const scoreResult = calculateSecurityScore({
@@ -133,72 +130,6 @@ export const runFullScan = async (inputDomain) => {
     sensitivePaths: sensitivePathsData,
     openPorts: openPortsData
   });
-  console.log({
-    dnsData,
-    subdomainsData,
-    technologiesData,
-    infrastructureData,
-    wafData
-  });
-
-  const finalResult = {
-    domain,
-    reachable: true,
-    scannedAt: new Date().toISOString(),
-
-    dns: dnsData,
-    ssl: sslData,
-    headers: headersData,
-    whois: whoisData,
-    robots: robotsData,
-    sitemap: sitemapData,
-    redirects: redirectsData,
-
-    threatIntel: {
-      virusTotal: virusTotalData,
-      safeBrowsing: safeBrowsingData
-    },
-
-    archiveHistory: waybackData,
-
-    intelligence: {
-      subdomains: subdomainsData,
-      waf: wafData,
-      technologies: technologiesData,
-      infrastructure: infrastructureData
-    },
-
-    vulnerabilities: {
-      score: scoreResult.score,
-      riskLevel: scoreResult.riskLevel,
-      findings: scoreResult.findings,
-      cookies: cookiesData,
-      cors: corsData,
-      sensitivePaths: sensitivePathsData,
-      openPorts: openPortsData,
-      techStack: [
-        ...new Set([
-          ...(detectTechStack(headersData?.headers || {}) || []),
-          ...(technologiesData?.technologies || [])
-        ])
-      ]
-    }
-  };
-
-  const previousScan = await getPreviousScan(domain);
-  const comparison = compareScans(finalResult, previousScan);
-  const riskExplanation = generateRiskExplanation(finalResult);
-
-  await saveScanHistory(finalResult);
-
-  return {
-    ...finalResult,
-    history: {
-      comparison,
-      riskExplanation
-    }
-  };
-
 
   return {
     domain,
