@@ -582,11 +582,11 @@ export default function App() {
     } else if (result) {
       document.title = `${scannedDomain} | Scan Complete`;
     } else {
-      document.title = "Three-Eyed Raven | Web Security Scanner";
+      document.title = "Three-Eyed Web Security Checker";
     }
 
     return () => {
-      document.title = "Three-Eyed Raven | Web Security Scanner";
+      document.title = "Three-Eyed Web Security Checker";
     };
   }, [loading, result, domain, scannedDomain]);
 
@@ -658,7 +658,7 @@ export default function App() {
             >
               THREE-EYED
               <span style={{ display: "block", fontSize: "0.55em", color: "var(--accent-primary)", letterSpacing: "0.18em", marginTop: 4 }}>
-                RAVEN
+                Web Security Checker
               </span>
             </h1>
 
