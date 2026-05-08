@@ -485,3 +485,113 @@ body {
 .scanlines::before {
   opacity: 0.05 !important;
 }
+
+
+/* =========================
+   RESULT SECTION FIX
+========================= */
+
+.results-section .result-card,
+.result-grid .result-card,
+.results-grid .result-card {
+  background: rgba(235, 241, 247, 0.82) !important;
+  border: 1px solid rgba(14, 116, 144, 0.28) !important;
+
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.08),
+    inset 0 0 8px rgba(8, 145, 178, 0.04) !important;
+}
+
+/* Main text inside cards */
+.result-card,
+.result-card p,
+.result-card span,
+.result-card div {
+  color: #0f172a !important;
+}
+
+/* Card labels */
+.stat-label {
+  color: #334155 !important;
+  font-weight: 600;
+}
+
+/* Card values */
+.stat-value {
+  color: #020617 !important;
+  font-weight: 700;
+}
+
+/* Vulnerability colors */
+.vuln-high,
+.badge-high {
+  background: rgba(239, 68, 68, 0.16) !important;
+  color: #991b1b !important;
+  border-color: rgba(220, 38, 38, 0.35) !important;
+}
+
+.vuln-medium,
+.badge-medium {
+  background: rgba(245, 158, 11, 0.18) !important;
+  color: #92400e !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+}
+
+.vuln-low,
+.badge-low {
+  background: rgba(6, 182, 212, 0.16) !important;
+  color: #155e75 !important;
+  border-color: rgba(6, 182, 212, 0.35) !important;
+}
+
+/* Fix suggestion cards */
+.fix-card,
+.fix-item {
+  background: rgba(255, 255, 255, 0.52) !important;
+  border: 1px solid rgba(16, 185, 129, 0.16) !important;
+}
+
+/* Purple text fix */
+.result-card .purple-text,
+.result-card .lavender-text {
+  color: #4c1d95 !important;
+}
+
+/* Yellow text fix */
+.result-card .yellow-text {
+  color: #854d0e !important;
+}
+
+/* Vulnerability text stronger */
+.result-card .vulnerability-text {
+  font-weight: 700 !important;
+  letter-spacing: 0.02em;
+}
+
+/* Card titles */
+.result-card .card-title {
+  color: #0f766e !important;
+  font-weight: 700;
+}
+
+/* Small readability boost */
+.result-card {
+  backdrop-filter: blur(12px);
+}
+
+/* Info icon */
+.result-card .info-icon,
+.result-card .tooltip-trigger {
+  color: #7c3aed !important;
+  border-color: rgba(124, 58, 237, 0.35) !important;
+}
+
+/* Table style rows */
+.result-card .stat-row {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+/* Fix suggestions paragraph */
+.result-card p {
+  line-height: 1.6;
+}
